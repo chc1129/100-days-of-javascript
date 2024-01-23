@@ -1,6 +1,6 @@
-# Day #4
+# Day #5
 
-Password Generator
+### Detect Device Battery
 org url: github.com/AsmrProg-YT/100-days-of-javascript
 
 Screenshot
