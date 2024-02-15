@@ -37,3 +37,57 @@ function startNewGame() {
         inputs.appendChild(input);
     }
 }
+
+// Handle user input and update game stats
+function handleInput(e) {
+    // Ignore non-letters input and letters that have already guessed
+    const key = e.target.value.toLowerCase();
+    if (key.match(/^[a-z]+$/i) && !incorrectLetters.includes(`${key}`) && !correctLetters.includes(`${key}`)) {
+        // Check if the letter is in word
+        if (word.includes(key)) {
+            // Update correct guess
+            for (let i = 0; i < word.length; i++) {
+                if (word[i] === key) {
+                    inputs.querySelectorAll("input")[i].value += key;
+                }
+            }
+            correctLetters += key;
+        } else {
+            // Update incorrect guess
+            maxGuesses--;
+            incorrectLetters.push(`${key}`);
+            mistakes.innerText = incorrectLetters;
+        }
+    }
+
+    // Update remain guess and check for win lose conditions
+    guessLeft.innerText = maxGuesses;
+    if (correctLetters.length === word.length) {
+        alert(`Congrats! You Found The Word ${word.toUpperCase()}`);
+        startNewGame();
+    } else if (maxGuesses < 1) {
+        alert("Game Over! You Don't Have Remaining Guesses!");
+        for (let i = 0; i < word.length; i++) {
+            // FIll inputs with correct words
+            inputs.querySelectorAll("input")[i].value = word[i];
+        }
+    }
+
+    // Clear input field
+    typeInput.value = "";
+}
+
+// Show hint element
+function showHintElement() {
+    hintElement.style.display = "block";
+    hintElement.style.opacity = "1";
+}
+
+// Setup event listeners
+resetBtn.addEventListener("click", startNewGame);
+hintBtn.addEventListener("click", showHintElement);
+typeInput.addEventListener("input", handleInput);
+inputs.addEventListener("click", () => typeInput.focus());
+document.addEventListener("keydown", () => typeInput.focus());
+
+startNewGame();
