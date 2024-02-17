@@ -12,7 +12,7 @@ let word, incorrectLetters = [], correctLetters = [], maxGuesses;
 
 // Select random word from word list and set up game
 function startNewGame() {
-    alert("New Game Started! Guess New Word :");
+    alert("New Game Started! Guess New Word :)");
     // Hide hint element
     hintElement.style.display = "none";
     hintElement.style.opacity = "0";
@@ -68,7 +68,7 @@ function handleInput(e) {
     } else if (maxGuesses < 1) {
         alert("Game Over! You Don't Have Remaining Guesses!");
         for (let i = 0; i < word.length; i++) {
-            // FIll inputs with correct words
+            // Fill inputs with correct words
             inputs.querySelectorAll("input")[i].value = word[i];
         }
     }
