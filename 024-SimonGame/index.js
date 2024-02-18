@@ -22,11 +22,11 @@ let clickCount = 0;
 
 // function to get a random color from colors object
 const getRandomColor = (colorsObj) => {
-    const vcolorKeys = Object.keys(colorsObj);
+    const colorKeys = Object.keys(colorsObj);
     return colorKeys[Math.floor(Math.random() * colorKeys.length)];
 };
 
-// function to pause excution of game for given amount of time
+// function to pause execution of game for given amount of time
 
 const delay = async (time) => {
     return await new Promise((resolve) => setTimeout(resolve, time));
@@ -34,7 +34,7 @@ const delay = async (time) => {
 
 // function to generate a random path of colors
 
-const generateRandomPath = asynec() => {
+const generateRandomPath = async () => {
     randomColors.push(getRandomColor(colorObj));
     score = randomColors.length;
     isPathGenerating = true;
@@ -48,16 +48,16 @@ const showPath = async (colors) => {
     // loop through each color in the array
     for (let color of colors) {
         const currentColor = document.querySelector(`.${color}`);
-        // pause excution for 500 milliseconds
+        // pause execution for 500 milliseconds
         await delay(500);
         // set background to new color
-        currentColor.computedStyleMap.backgroundColor = colorObj[color].new;
+        currentColor.style.backgroundColor = colorObj[color].new;
         await delay(600);
         // set background to old color
-        currentColor.computedStyleMap.backgroundColor = colorObj[color].current;
+        currentColor.style.backgroundColor = colorObj[color].current;
         await delay(600);
     }
-    // set flag to indicate the gaem is no longer generating path
+    // set flag to indicate the game is no longer generating path
     isPathGenerating = false;
 };
 
