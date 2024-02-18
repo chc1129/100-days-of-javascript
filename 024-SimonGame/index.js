@@ -83,3 +83,30 @@ const resetGame = () => {
     containerEl.classList.add("hide");
     generateRandomPath();
 };
+
+// function to handle a color being clicked
+
+const handleColorClick = async (e) => {
+    // if the path is currently being generated, ignore click
+    if (isPathGenerating) {
+        return false;
+    }
+    // if clicked color is correct, update score and continue generating the path
+    if (e.target.classList.contains(randomColors[clickCount])) {
+        e.target.style.backgroundColor = colorObj[randomColors[clickCount]].new;
+        await delay(500);
+        e.target.style.backgroundColor = colorObj[randomColors[clickCount]].current;
+        clickCount++;
+        if (clickCount === score) {
+            clickCount = 0;
+            generateRandomPath();
+        }
+        // if the clicked color is incorrect, end game
+    } else {
+        endGame();
+    }
+};
+
+// Event Listeners
+startBtn.addEventListener("click", resetGame);
+colorParts.forEach((color) => color.addEventListener("click", handleColorClick));
