@@ -19,4 +19,14 @@ const chartOptions = {
             stops: [0, 90, 100] // Set chart fill gradient stops
         }
     },
+    xaxis: {
+        categories: ['Feb', 'Apr', 'Jun', 'Aug', 'Oct', 'Dec'], // Set x-axis categories
+        axisBorder: { show: false }, // Hide x-axis border
+        labels: { style: { colors: '#a7a7a', fontFamily: 'Poppins'} } // Set x-axis label properties
+    },
+    yaxis: { show: false }, // Hide y-axis
+    grid: {
+        borderColor: 'rgba(0, 0, 0, 0)', // Set grid border color
+        padding: { top: -30, bottom: -8, left: 12, right: 12 } // Set grid padding
+    },
 }
