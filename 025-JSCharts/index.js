@@ -29,4 +29,10 @@ const chartOptions = {
         borderColor: 'rgba(0, 0, 0, 0)', // Set grid border color
         padding: { top: -30, bottom: -8, left: 12, right: 12 } // Set grid padding
     },
-}
+    tooltip: {
+        enabled: true, // Enable chart tooltip
+        y: { formatter: value => `${value}K` }, // Set y-axis tooltip label formatter
+        sytle: { fontFamily: 'Poppins' } // Set tooltip font family
+    },
+    markers: { show: false } // Hide chart markers
+};
