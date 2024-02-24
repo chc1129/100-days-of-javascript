@@ -40,4 +40,3 @@ const chartOptions = {
 // Create new ApexCharts instance with chart options and render it
 const chart = new ApexCharts(document.querySelector('.chart-area'), chartOptions);
 chart.render();
-
