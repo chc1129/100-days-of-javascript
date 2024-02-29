@@ -30,5 +30,24 @@ function searchMeal() {
             resultContainer.innerHTML = `<h3>No Meal Found, Please Try Again</h3>`;
             return;
         }
+        const ingredients = getIngredients(meal);
+        // Generate Html to dipslay meal data
+        const recipeHtml = `
+            <div class="details">
+                <h2>${meal.strMeal}</h2>
+                <h4>${meal.strArea}</h4>
+            </div>
+            <img src=${meal.strMealThumb} alt=${meal.strMeal} />
+            <div id="ingre-contailner">
+                <h3>Ingredients:</h3>
+                <ul>${ingredients}</ul>
+            </div>
+            <div id="recipe">
+                <button id="hide-recipe">X</button>
+                <pre id="instructions">${meal.strInstructions}</pre>
+            </div>
+            <button id="show-recipe">View Recipe</button>
+        `;
+        resultContainer.innerHTML = recipeHtml;
     })
 }
