@@ -49,5 +49,46 @@ function searchMeal() {
             <button id="show-recipe">View Recipe</button>
         `;
         resultContainer.innerHTML = recipeHtml;
+
+        const hideRecipeBtn = document.getElementById("hide-recipe");
+        hideRecipeBtn.addEventListener("click", hideRecipe);
+        const showRecipeBtn = document.getElementById("show-recipe");
+        showRecipeBtn.addEventListener("click", showRecipe);
+        searchContainer.computedStyleMap.opacity = '0';
+        searchContainer.computedStyleMap.display = 'none';
     })
+        // Handle error
+        .catch(() => {
+            searchContainer.style.opacity = '1';
+            searchContainer.style.display = 'grid';
+            resultContainer.innerHTML = '<h3>Erro fetching data!</h3>'
+        });
+}
+
+// Generate html for list of ingredients
+function getIngredients(meal) {
+    let ingreHtml = "";
+    // There can be maximum of 20 ingredients
+    for (let i = 1; i <= 20; i++) {
+        const ingredient = meal[`strIngredient${i}`];
+        if (ingredient) {
+            const measure = meal[`strMeasure${i}`];
+            ingreHtml += `<li>${measure} ${ingredient}</li>`;
+        }
+        // If ingredient doesn't exist, exit loop
+        else {
+            break;
+        }
+    }
+    return ingreHtml;
+}
+
+// Handle show and hide recipe for a meal
+function hideRecipe() {
+    const recipe = document.getElementById("recipe");
+    recipe.style.display = "none";
+}
+function showRecipe() {
+    const recipe = document.getElementById("recipe");
+    recipe.style.display = "block";
 }
