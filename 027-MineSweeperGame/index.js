@@ -34,3 +34,30 @@ function generateMines() {
         }
     }
 }
+
+// Highlight all mines red
+function revealMines() {
+    for (var i = 0; i < 10; i++) {
+        for (var j = 0; j < 10; j++) {
+            var cell = grid.rows[i].cells[j];
+            if (cell.getAttribute("mine") == "true") {
+                cell.className = "mine";
+            }
+        }
+    }
+}
+
+function checkGameComplete() {
+    var gameComplete = true;
+    for (var i = 0; i < 10; i++) {
+        for (var j = 0; j < 10; j++) {
+            if ((grid.rows[i].cells[j].getAttribute("mine") == "false") && (grid.rows[i].cells[j].innerHTML == "")) {
+                gameComplete = false;
+            }
+        }
+    }
+    if (gameComplete) {
+        alert("You Found All Mines!");
+        revealMines();
+    }
+}
