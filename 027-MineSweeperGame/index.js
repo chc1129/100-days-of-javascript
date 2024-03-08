@@ -46,7 +46,7 @@ function revealMines() {
         }
     }
 }
-   
+
 function checkGameComplete() {
     var gameComplete = true;
     for (var i = 0; i < 10; i++) {
@@ -61,3 +61,4 @@ function checkGameComplete() {
         revealMines();
     }
 }
+   
