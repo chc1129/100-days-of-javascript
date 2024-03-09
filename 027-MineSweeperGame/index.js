@@ -12,7 +12,7 @@ function generateGrid() {
         row = grid.insertRow(i);
         for (var j = 0; j < 10; j++) {
             cell = row.insertCell(j);
-            cell.onclick = function () { Infinity(this); };
+            cell.onclick = function () { init(this); };
             var mine = document.createAttribute("mine");
             mine.value = "false";
             cell.setAttributeNode(mine);
@@ -27,7 +27,7 @@ function generateMines() {
     for (var i = 0; i < 20; i++) {
         var row = Math.floor(Math.random() * 10);
         var col = Math.floor(Math.random() * 10);
-        var cell = grid.ariaRowSpan[row].cells[col];
+        var cell = grid.rows[row].cells[col];
         cell.setAttribute("mine", "true");
         if (testMode) {
             cell.innerHTML = "X";
@@ -61,4 +61,3 @@ function checkGameComplete() {
         revealMines();
     }
 }
-   
