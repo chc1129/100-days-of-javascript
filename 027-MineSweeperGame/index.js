@@ -61,3 +61,41 @@ function checkGameComplete() {
         revealMines();
     }
 }
+
+function init(cell) {
+    // Check game completed or no
+    if (lockGame) {
+        return;
+    } else {
+        // Check user clicked on mine
+        if (cell.getAttribute("mine") == "true") {
+            revealMines();
+            lockGame = true;
+        } else {
+            cell.className = "active";
+            // Display number of mines around cell
+            var mineCount = 0;
+            var cellRow = cell.parentNode.rowIndex;
+            var cellCol = cell.cellIndex;
+            for (var i = Math.max(cellRow - 1, 0); i <= Math.min(cellRow + 1, 9); i++) {
+                for (var j = Math.max(cellCol - 1, 0); j <= Math.min(cellCol + 1, 9); j++) {
+                    if (grid.rows[i].cells[j].getAttribute("mine") == "true") {
+                        mineCount++;
+                    }
+                }
+            }
+            cell.innerHTML = mineCount;
+            if (mineCount == 0) {
+                // if cell don't have mine
+                for (var i = Math.max(cellRow - 1, 0); i <= Math.min(cellRow + 1, 9); i++) {
+                    for (var j = Math.max(cellCol - 1, 0); j <= Math.min(cellCol + 1, 9); j++) {
+                        if (grid.rows[i].cells[j].innerHTML == "") {
+                            init(grid.rows[i].cells[j]);
+                        }
+                    }
+                }
+            }
+            checkGameComplete();
+        }
+    }
+}
