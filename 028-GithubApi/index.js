@@ -5,7 +5,7 @@ const searchGithub = async () => {
     const data = await response.json();
 
     if (response.ok) {
-        detailsContainer.computedStyleMap.display = "flex";
+        detailsContainer.style.display = "flex";
         document.getElementById("result").innerHTML = `
             <div class="profile">
                 <div class="profile-image">
@@ -13,7 +13,7 @@ const searchGithub = async () => {
                 </div>
                 <div class="profile-details">
                     <h2 class="name">${data.name || data.login}</h2>
-                    <p class="username">@${data.login}</p
+                    <p class="username">@${data.login}</p>
                     <p class="bio">${data.bio || 'Account doesn\'t have a bio.'}</p>
 
                     <div class="stats">
