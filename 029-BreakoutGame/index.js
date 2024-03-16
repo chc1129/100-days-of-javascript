@@ -107,3 +107,38 @@ function hitDetection() {
         }
     }
 }
+
+// Main function
+function init() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    trackScore();
+    drawBricks();
+    drawBall();
+    drawPaddle();
+    hitDetection();
+
+    // Detect left and right walls
+    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+    } else if (y + dy > canvas.height - ballRadius) {
+        // Detect paddle hits
+        if (x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+        } else {
+            // If ball don't hit paddle
+            alert('Game Over!');
+            document.location.reload();
+        }
+    }
+
+    // Bottom wall
+    if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+        dy = -dy;
+    }
+
+    // Move Ball
+    x += dx;
+    y += dy;
+}
+
+setInterval(init, 10);
