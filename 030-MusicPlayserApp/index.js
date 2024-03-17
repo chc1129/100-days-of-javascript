@@ -4,7 +4,7 @@ const image = document.getElementById('cover'),
     currentTimeEl = document.getElementById('current-time'),
     durationEl = document.getElementById('duration'),
     progress = document.getElementById('progress'),
-    playserProgress = document.getElementById('player-progress'),
+    playerProgress = document.getElementById('player-progress'),
     prevBtn = document.getElementById('prev'),
     nextBtn = document.getElementById('next'),
     playBtn = document.getElementById('play'),
@@ -62,7 +62,7 @@ function pauseMusic() {
     music.pause();
 }
 
-function loadMusic() {
+function loadMusic(song) {
     music.src = song.path;
     title.textContent = song.displayName;
     artist.textContent = song.artist;
@@ -70,18 +70,18 @@ function loadMusic() {
     background.src = song.cover;
 }
 
-function changMusic(direction) {
-    musicIndex = (musicIndex + direction + song.length) % songs.length;
-    loadMusic(song[musicIndex]);
+function changeMusic(direction) {
+    musicIndex = (musicIndex + direction + songs.length) % songs.length;
+    loadMusic(songs[musicIndex]);
     playMusic();
 }
 
 function updateProgressBar() {
     const { duration, currentTime } = music;
-    const progressPerrcent = (currentTime / duration) * 100;
+    const progressPercent = (currentTime / duration) * 100;
     progress.style.width = `${progressPercent}%`;
 
-    const formatTime = (time) => String(math.floor(time)).padStart(2, '0');
+    const formatTime = (time) => String(Math.floor(time)).padStart(2, '0');
     durationEl.textContent = `${formatTime(duration / 60)}:${formatTime(duration % 60)}`;
     currentTimeEl.textContent = `${formatTime(currentTime / 60)}:${formatTime(currentTime % 60)}`;
 }
@@ -93,8 +93,8 @@ function setProgressBar(e) {
 }
 
 playBtn.addEventListener('click', togglePlay);
-prevBtn.addEventListener('click', () => changMusic(-1));
-nextBtn.addEventListener('click', () => changMusic(1));
+prevBtn.addEventListener('click', () => changeMusic(-1));
+nextBtn.addEventListener('click', () => changeMusic(1));
 music.addEventListener('ended', () => changeMusic(1));
 music.addEventListener('timeupdate', updateProgressBar);
 playerProgress.addEventListener('click', setProgressBar);
