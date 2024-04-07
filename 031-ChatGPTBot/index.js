@@ -1,4 +1,4 @@
-const charLog = document.getElementById('chat-log'),
+const chatLog = document.getElementById('chat-log'),
     userInput = document.getElementById('user-input'),
     sendButton = document.getElementById('send-button'),
     buttonIcon = document.getElementById('button-icon'),
@@ -26,8 +26,9 @@ function sendMessage() {
         // sets a fake timeout that showing loading on send button
         setTimeout(() => {
             // send our message as bot(sender : bot)
-            appendMesage('bot', 'This Soure Coded By Reza Mehdikhanlou \nYoutube: @AsmrProg');
-            buttonIcon.classList.add('fa-solid', 'fa-paper-plan');
+            appendMessage('bot', 'This Source Coded By Reza Mehdikhanlou \nYoutube : @AsmrProg');
+            // change button icon to default
+            buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
             buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
         }, 2000);
         return;
@@ -35,7 +36,7 @@ function sendMessage() {
 
     // else if none of above
     // appends users message to screen
-    appendMesage('user', message);
+    appendMessage('user', message);
     userInput.value = '';
 
     const options = {
@@ -52,7 +53,7 @@ function sendMessage() {
             */
         },
         body: `{"messages":[{"role":"user","content":"${message}"}]}`
-        // if you want use officital api you need have this body
+        // if you want use official api you need have this body
         // `{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"${message}"}]}`
     };
     // official api : 'https://openai80.p.rapidapi.com/chat/completions';
@@ -60,12 +61,12 @@ function sendMessage() {
         appendMessage('bot', response.choices[0].message.content);
 
         buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
-        buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulase');
+        buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
     }).catch((err) => {
         if (err.name === 'TypeError') {
             appendMessage('bot', 'Error : Check Your Api Key!');
             buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
-            buttonIcon.classList.remove('fas', 'fa-spiner', 'fa-pulse');
+            buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
         }
     });
 }
@@ -81,8 +82,8 @@ function appendMessage(sender, message) {
     const chatElement = document.createElement('div');
     const icon = document.createElement('i');
 
-    chatElement.classList.add('chat-box');
-    iconElement.classList.add('icon');
+    chatElement.classList.add("chat-box");
+    iconElement.classList.add("icon");
     messageElement.classList.add(sender);
     messageElement.innerText = message;
 
