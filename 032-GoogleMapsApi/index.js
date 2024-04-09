@@ -17,3 +17,5 @@ function initialize() {
     // Create an info window to display location info
     var infoWindow = new google.maps.infoWindow();
 }
+
+
