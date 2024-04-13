@@ -1,45 +1,105 @@
-// Set map
-function initialize() {
-    var mapOptions = {
-        // Zoom of map on start
-        zoom: 10,
-        // Initial center cordinates on start (NewYork)
-        center: new google.maps.LatLng(40.7128, -74.0060),
-        // Type of map (ROADMAP, SATELLITE, HYBRID, TERRAIN)
-        mapTypeID: google.Map.mapTypeID.RADMAP,
-        // Minimum zoom of map
-        minZoom: 2
+const chatLog = document.getElementById('chat-log'),
+    userInput = document.getElementById('user-input'),
+    sendButton = document.getElementById('send-button'),
+    buttonIcon = document.getElementById('button-icon'),
+    info = document.querySelector('.info');
+
+sendButton.addEventListener('click', sendMessage);
+userInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    const message = userInput.value.trim();
+    // if message = empty do nothing
+    if (message === '') {
+        return;
+    }
+    // if message = developer - show our message
+    else if (message === 'developer') {
+        // clear input value
+        userInput.value = '';
+        // append message as user - we will code it's function
+        appendMessage('user', message);
+        // sets a fake timeout that showing loading on send button
+        setTimeout(() => {
+            // send our message as bot(sender : bot)
+            appendMessage('bot', 'This Source Coded By Reza Mehdikhanlou \nYoutube : @AsmrProg');
+            // change button icon to default
+            buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
+            buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
+        }, 2000);
+        return;
+    }
+
+    // else if none of above
+    // appends users message to screen
+    appendMessage('user', message);
+    userInput.value = '';
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+            'X-RapidAPI-Key': 'Your Key',
+            'X-RapidAPI-Host': 'chatgpt53.p.rapidapi.com'
+            // if you want use official api
+            /*
+            'content-type': 'application/json',
+            'X-RapidAPI-Key': 'Your Key',
+            'X-RapidAPI-Host': 'openai80.p.rapidapi.com'
+            */
+        },
+        body: `{"messages":[{"role":"user","content":"${message}"}]}`
+        // if you want use official api you need have this body
+        // `{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"${message}"}]}`
     };
+    // official api : 'https://openai80.p.rapidapi.com/chat/completions';
+    fetch('https://chatgpt53.p.rapidapi.com/', options).then((response) => response.json()).then((response) => {
+        appendMessage('bot', response.choices[0].message.content);
 
-    // Create a new map instance using provided options
-    var map = new google.map.Map(document.getElementById('map'), mapOptions);
-
-    // Create an info window to display location info
-    var infoWindow = new google.maps.infoWindow();
-
-    // Create a marker for example : Iran, Zanjan
-    var marker = new google.maps.Marker({
-        // Cordinates for Iran, Zanjan
-        position: new google.maps.LatLng(36.6769, 48.4964),
-        // Attach the marker
-        map: map,
-        // Tooltip on hover
-        title: 'Iran, Zanjan'
+        buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
+        buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
+    }).catch((err) => {
+        if (err.name === 'TypeError') {
+            appendMessage('bot', 'Error : Check Your Api Key!');
+            buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
+            buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
+        }
     });
-
-    // Add click event listener for marker
-    marker.addListener('click', function () {
-        infoWindow.setContent(marker.title);
-        infoWindow.open(map, marker);
-    });
-
-    // Adjust map center when the window is resized
-    google.maps.event.addDomListener(window, "resize", function () {
-        map.setCenter(mapOptions.center);
-    });
-
-
 }
 
-// Initialize the map when window loading finished
-google.maps.event.addDomListener(window, 'load', initialize);
+function appendMessage(sender, message) {
+    info.style.display = "none";
+    // change send button icon to loading using fontawesome
+    buttonIcon.classList.remove('fa-solid', 'fa-paper-plane');
+    buttonIcon.classList.add('fas', 'fa-spinner', 'fa-pulse');
+
+    const messageElement = document.createElement('div');
+    const iconElement = document.createElement('div');
+    const chatElement = document.createElement('div');
+    const icon = document.createElement('i');
+
+    chatElement.classList.add("chat-box");
+    iconElement.classList.add("icon");
+    messageElement.classList.add(sender);
+    messageElement.innerText = message;
+
+    // add icons depending on who send message bot or user
+    if (sender === 'user') {
+        icon.classList.add('fa-regular', 'fa-user');
+        iconElement.setAttribute('id', 'user-icon');
+    } else {
+        icon.classList.add('fa-solid', 'fa-robot');
+        iconElement.setAttribute('id', 'bot-icon');
+    }
+
+    iconElement.appendChild(icon);
+    chatElement.appendChild(iconElement);
+    chatElement.appendChild(messageElement);
+    chatLog.appendChild(chatElement);
+    chatLog.scrollTo = chatLog.scrollHeight;
+
+}
