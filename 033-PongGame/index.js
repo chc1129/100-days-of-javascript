@@ -1,5 +1,5 @@
 const canvas = document.getElementById("game");
-const constext = canvas.getContext("2d");
+const context = canvas.getContext("2d");
 canvas.width = widnow.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -21,8 +21,15 @@ function drawNet() {
 
 // Draw rectangle on canvas
 function drawRect(x, y, width, height, color) {
-    constext.fillStyle = color;
-    constext.fillRect(x, y, width, height);
+    context.fillStyle = color;
+    context.fillRect(x, y, width, height);
 }
 
 // Draw a circle on canvas
+function drawCircle(x, y, radius, color) {
+    context.fillStyle = color;
+    context.beginPath();
+    context.arc(x, y, radius, 0, Math.PI * 2, false);
+    context.closePath();
+    context.fill();
+}
