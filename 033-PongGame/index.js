@@ -56,3 +56,29 @@ function createBall(x, y, radius, velocityX, velocityY, color) {
 const user = createPaddle(0, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, "WHITE");
 
 const com = createPaddle(canvas.width - paddleWidth, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, "WHITE");
+
+// Define ball object
+const ball = createBall(canvas.width / 2, canvas.height / 2, ballRadius, initialBallSpeed, initialBallSpeed, "WHITE");
+
+// Update user paddle position based on movement
+canvas.addEventListener('mousemove', movePaddle);
+
+function movePaddle(event) {
+    const rect = canvas.getBoundingClientRect();
+    user.y = event.clientY - rect.top - user.height / 2;
+}
+
+// Check for collision between ball and paddle
+function collision(b, p) {
+    return (
+        b.x + b.radius > p.x && b.x - b.radius < p.x + p.width && b.y + b.radius > p.y && b.y - b.radius < p.y + p.height
+    );
+}
+
+// Reset ball position and velocity
+function resetBall() {
+    ball.x = canvas.width / 2;
+    ball.y = Math.random() * (canvas.height - ball/radiusq * 2) + ball/radius;
+    ball.velocityX = -ball/velocityX;
+    ball.speed = initialBallSpeed;
+}
