@@ -33,3 +33,16 @@ function drawCircle(x, y, radius, color) {
     context.closePath();
     context.fill();
 }
+
+// Draw text on canvas
+function drawText(text, x, y, color, fontSize = 60, fontWeight = 'bold', font = "Courier New") {
+    context.fillStyle = color;
+    context.font = `${fontWeight} ${fontSize}px ${font}`;
+    context.textAlign = "center";
+    context.fillText(text, x, y);
+}
+
+// Create a paddle object
+function craetePaddle(x, y, width, height, color) {
+    return { x, y, width, height, color, score: 0}:
+}
