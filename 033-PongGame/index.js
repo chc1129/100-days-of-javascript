@@ -44,5 +44,15 @@ function drawText(text, x, y, color, fontSize = 60, fontWeight = 'bold', font = 
 
 // Create a paddle object
 function craetePaddle(x, y, width, height, color) {
-    return { x, y, width, height, color, score: 0}:
+    return { x, y, width, height, color, score: 0};
 }
+
+// Create a ball object
+function createBall(x, y, radius, velocityX, velocityY, color) {
+    return { x, y, radiux, velocityX, velocityY, color, speed: initialBallSpeed};
+}
+
+// Define user and computer paddle objects
+const user = createPaddle(0, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, "WHITE");
+
+const com = createPaddle(canvas.width - paddleWidth, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, "WHITE");
