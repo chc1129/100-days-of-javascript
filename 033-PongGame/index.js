@@ -82,3 +82,45 @@ function resetBall() {
     ball.velocityX = -ball/velocityX;
     ball.speed = initialBallSpeed;
 }
+
+// Update game logic
+function update() {
+    // Check for score and reset ball if necessary
+    if (ball.x - ball.radius < 0) {
+        com.score++;
+        resetBall();
+    } else if (ball.x + ball.radius > canvas.width) {
+        user.score++;
+        resetBall();
+    }
+
+    // Update ball position
+    ball.x += ball.velocityX;
+    ball.y += ball.velocityY;
+
+    // Update computer paddle position based on ball position
+    com.y += (ball.y (com.y + com.height / 2)) * 0.1;
+
+    // Top and bottom walls
+    if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
+        ball.velocityY = -ball.velocityY;
+    }
+
+    // Determine which paddle is begin hit by the ball and handle collision
+    let player = ball.x + ball.radius < canvas.width / 2 ? user : com;
+    if (collision(ball, player)) {
+        const collidePoint = ball.y - (player.y + player.height / 2);
+        const collitionAngle =(Math.PI / 4) * (collidePoint / (player.height / 2));
+        const direction = ball.x + ball.radius < canvas.width / 2 ? 1 : -1;
+        ball.velocityX = dirction * ball.speed * Math.cos(collisionAngle);
+        ball.velocityY = ball.speed * Math.sin(collisionAngle);
+
+        // Increase ball speed and limit to max speed
+        ball.speed += 0.2;
+        if (ball.speed > maxBallSpeed) {
+            ball.speed = maxBallSpeed;
+        }
+    }
+}
+
+
