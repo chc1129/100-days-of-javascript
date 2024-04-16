@@ -123,4 +123,32 @@ function update() {
     }
 }
 
+// Render game on canvas
+function render() {
+    // Clear canvas with black screen
+    drawRect(0, 0, canvas.width, canvas.height, "BLACK");
+    drawNet();
 
+    // Draw scores
+    drawText(user.score, canvas.width / 4, canvas.height / 2, "GRAY", 120, "bold");
+    drawText(com.score, (3 * canvas.width) / 4, canvas.height / 2, "GRAY", 120, 'bold');
+
+    // Draw paddles
+    drawRect(user.x, user.y, user.width, user.height, user.color);
+    drawRect(com.x, com.y, com.width, com.height, com.color);
+
+    // Draw ball
+    drawCircle(ball.x, ball.y, ball.radius, ball.color);
+
+}
+
+
+// Runc game loop
+function gameLoop() {
+    update();
+    render();
+}
+
+// Set gameLoop to run at 60 frame per second
+const framePerSec = 60;
+setInterval(gameLoop, 1000 / framePerSec);
