@@ -1,13 +1,13 @@
 const canvas = document.getElementById("game");
 const context = canvas.getContext("2d");
-canvas.width = widnow.innerWidth;
+canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const paddleWidth = 18,
     paddleHeight = 120,
     paddleSpeed = 8,
     ballRadius = 12,
-    initialBallSpeed = 40,
+    initialBallSpeed = 8,
     maxBallSpeed = 40,
     netWidth = 5,
     netColor = "WHITE";
@@ -43,13 +43,13 @@ function drawText(text, x, y, color, fontSize = 60, fontWeight = 'bold', font = 
 }
 
 // Create a paddle object
-function craetePaddle(x, y, width, height, color) {
-    return { x, y, width, height, color, score: 0};
+function createPaddle(x, y, width, height, color) {
+    return { x, y, width, height, color, score: 0 };
 }
 
 // Create a ball object
 function createBall(x, y, radius, velocityX, velocityY, color) {
-    return { x, y, radiux, velocityX, velocityY, color, speed: initialBallSpeed};
+    return { x, y, radius, velocityX, velocityY, color, speed: initialBallSpeed };
 }
 
 // Define user and computer paddle objects
@@ -60,7 +60,7 @@ const com = createPaddle(canvas.width - paddleWidth, canvas.height / 2 - paddleH
 // Define ball object
 const ball = createBall(canvas.width / 2, canvas.height / 2, ballRadius, initialBallSpeed, initialBallSpeed, "WHITE");
 
-// Update user paddle position based on movement
+// Update user paddle position based on mouse movement
 canvas.addEventListener('mousemove', movePaddle);
 
 function movePaddle(event) {
@@ -78,8 +78,8 @@ function collision(b, p) {
 // Reset ball position and velocity
 function resetBall() {
     ball.x = canvas.width / 2;
-    ball.y = Math.random() * (canvas.height - ball/radiusq * 2) + ball/radius;
-    ball.velocityX = -ball/velocityX;
+    ball.y = Math.random() * (canvas.height - ball.radius * 2) + ball.radius;
+    ball.velocityX = -ball.velocityX;
     ball.speed = initialBallSpeed;
 }
 
@@ -99,7 +99,7 @@ function update() {
     ball.y += ball.velocityY;
 
     // Update computer paddle position based on ball position
-    com.y += (ball.y (com.y + com.height / 2)) * 0.1;
+    com.y += (ball.y - (com.y + com.height / 2)) * 0.1;
 
     // Top and bottom walls
     if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
@@ -110,9 +110,9 @@ function update() {
     let player = ball.x + ball.radius < canvas.width / 2 ? user : com;
     if (collision(ball, player)) {
         const collidePoint = ball.y - (player.y + player.height / 2);
-        const collitionAngle =(Math.PI / 4) * (collidePoint / (player.height / 2));
+        const collisionAngle = (Math.PI / 4) * (collidePoint / (player.height / 2));
         const direction = ball.x + ball.radius < canvas.width / 2 ? 1 : -1;
-        ball.velocityX = dirction * ball.speed * Math.cos(collisionAngle);
+        ball.velocityX = direction * ball.speed * Math.cos(collisionAngle);
         ball.velocityY = ball.speed * Math.sin(collisionAngle);
 
         // Increase ball speed and limit to max speed
@@ -130,7 +130,7 @@ function render() {
     drawNet();
 
     // Draw scores
-    drawText(user.score, canvas.width / 4, canvas.height / 2, "GRAY", 120, "bold");
+    drawText(user.score, canvas.width / 4, canvas.height / 2, "GRAY", 120, 'bold');
     drawText(com.score, (3 * canvas.width) / 4, canvas.height / 2, "GRAY", 120, 'bold');
 
     // Draw paddles
@@ -143,7 +143,7 @@ function render() {
 }
 
 
-// Runc game loop
+// Run game loop
 function gameLoop() {
     update();
     render();
