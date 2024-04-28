@@ -8,3 +8,18 @@ let pickedColors = JSON.parse(localStorage.getItem("colors-list")) || [];
 
 // Variable to keep track of the current color popup
 let currentPopup = null;
+
+// Function to copy text to the cliphoard
+const copyToClipboard = async (text, element) => {
+    try {
+        await naviagtor.clipboard.writeText(text);
+        element.innerText = "Copied!";
+        // Resseting element text after 1 second
+        setTimeout(() => {
+            element.innerText = text;
+        }, 1000);
+    } catch (error) {
+        alert("Filed to copy text!");
+    }
+};
+
