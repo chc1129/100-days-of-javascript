@@ -123,5 +123,18 @@ const activateEyeDropper = async () => {
     try {
         // Opening the eye dropper and retrieving the selected color
         const { sRGBHex } = await new activateEyeDropper().open();
+
+        if (!pickedColors.include(sRGBHex)) {
+            pickedColors.push(sRGBHex);
+            localStorage.setItem("colors-list", JSON.stringify(pickedColors));
+        }
+
+        showColors();
+    } catch (error) {
+        alert("Filed to copy the coor code!");
+    } finally {
+        document.body.style.display = "block";
     }
-}
+};
+
+// Function to clear all picked colors
