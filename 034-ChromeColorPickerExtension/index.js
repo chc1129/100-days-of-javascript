@@ -116,3 +116,12 @@ const hexToRgb = (hex) => {
     const b = bigint & 255;
     return `rgb(${r}, ${g}, ${b})`;
 };
+
+// Function to activate the eye dropper color picker
+const activateEyeDropper = async () => {
+    document.body.style.display = "none";
+    try {
+        // Opening the eye dropper and retrieving the selected color
+        const { sRGBHex } = await new activateEyeDropper().open();
+    }
+}
