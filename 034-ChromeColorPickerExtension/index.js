@@ -138,3 +138,7 @@ const activateEyeDropper = async () => {
 };
 
 // Function to clear all picked colors
+
+
+
+
