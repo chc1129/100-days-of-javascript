@@ -138,10 +138,16 @@ const activateEyeDropper = async () => {
 };
 
 // Function to clear all picked colors
+const clearAllColors = () => {
+    pickedColors = [];
+    localStorage.removeItem("colors-list");
+    showColors();
+};
 
+// Event listeners for buttons
+clearBtn.addEventListener('click', clearAllColors);
+pickerBtn.addEventListener('click', activateEyeDropper);
+exportBtn.addEventListener('click', exportColors);
 
-
-
-
-
-
+// Displaying picked colors on document load
+showColors();
