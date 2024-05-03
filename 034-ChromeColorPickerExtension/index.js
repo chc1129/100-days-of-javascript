@@ -9,10 +9,10 @@ let pickedColors = JSON.parse(localStorage.getItem("colors-list")) || [];
 // Variable to keep track of the current color popup
 let currentPopup = null;
 
-// Function to copy text to the cliphoard
+// Function to copy text to the clipboard
 const copyToClipboard = async (text, element) => {
     try {
-        await naviagtor.clipboard.writeText(text);
+        await navigator.clipboard.writeText(text);
         element.innerText = "Copied!";
         // Resseting element text after 1 second
         setTimeout(() => {
@@ -43,21 +43,21 @@ const createColorPopup = (color) => {
     popup.classList.add("color-popup");
     popup.innerHTML = `
         <div class="color-popup-content">
-        <span class="close-popup">x</span>
-        <div class="color-info">
-            <div class="color-preview" style="background: ${color};"></div>
-            <div class="color-details">
-                <div class="color-value">
-                    <span class="label">Hex:</span>
-                    <span class="value hex" data-color="${color}">${color}</span>
-                </div>
-                <div class="color-value">
-                    <span class="label">RGB:</span>
-                    <span class="value rgb" data-color="${color}">${hexToRgb(color)}</span>
+            <span class="close-popup">x</span>
+            <div class="color-info">
+                <div class="color-preview" style="background: ${color};"></div>
+                <div class="color-details">
+                    <div class="color-value">
+                        <span class="label">Hex:</span>
+                        <span class="value hex" data-color="${color}">${color}</span>
+                    </div>
+                    <div class="color-value">
+                        <span class="label">RGB:</span>
+                        <span class="value rgb" data-color="${color}">${hexToRgb(color)}</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     `;
 
     // Close button inside the popup
@@ -67,7 +67,7 @@ const createColorPopup = (color) => {
         currentPopup = null;
     });
 
-    // Event listeners to copy color values rto clipboard
+    // Event listeners to copy color values to clipboard
     const colorValues = popup.querySelectorAll(".value");
     colorValues.forEach((value) => {
         value.addEventListener('click', (e) => {
@@ -81,14 +81,14 @@ const createColorPopup = (color) => {
 
 // Function to display the picked colors
 const showColors = () => {
-    colorList.innerHTML = pickedColors.map((color) => {
+    colorList.innerHTML = pickedColors.map((color) =>
         `
             <li class="color">
                 <span class="rect" style="background: ${color}; border: 1px solid ${color === "#ffffff" ? "#ccc" : color}"></span>
                 <span class="value hex" data-color="${color}">${color}</span>
             </li>
         `
-    }).join("");
+    ).join("");
 
     const colorElements = document.querySelectorAll(".color");
     colorElements.forEach((li) => {
@@ -96,12 +96,12 @@ const showColors = () => {
         colorHex.addEventListener('click', (e) => {
             const color = e.currentTarget.dataset.color;
             if (currentPopup) {
-                document.boby.removeChild(currentPopup);
+                document.body.removeChild(currentPopup);
             }
             const popup = createColorPopup(color);
             document.body.appendChild(popup);
             currentPopup = popup;
-        });    
+        });
     });
 
     const pickedColorsContainer = document.querySelector(".colors-list");
@@ -122,16 +122,16 @@ const activateEyeDropper = async () => {
     document.body.style.display = "none";
     try {
         // Opening the eye dropper and retrieving the selected color
-        const { sRGBHex } = await new activateEyeDropper().open();
+        const { sRGBHex } = await new EyeDropper().open();
 
-        if (!pickedColors.include(sRGBHex)) {
+        if (!pickedColors.includes(sRGBHex)) {
             pickedColors.push(sRGBHex);
             localStorage.setItem("colors-list", JSON.stringify(pickedColors));
         }
 
         showColors();
     } catch (error) {
-        alert("Filed to copy the coor code!");
+        alert("Filed to copy the color code!");
     } finally {
         document.body.style.display = "block";
     }
