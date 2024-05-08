@@ -24,9 +24,32 @@
             sA = Math.sin(A),
             cB = Math.cos(B),
             sB = Math.sin(B);
+
+        // Initialize arrays with default angles
+        for (var k = 0; k < width * height; k++) {
+            // Set default ascii char
+            b[k] = k % width == width - 1 ? '\n' : ' ';
+            // Set default depth
+            z[k] = 0;
+        }
+
+        // Generate the ascii srame
+        for (var j = 0; j < 6.28; j += 0.07) {
+            var ct = Math.cos(j); // Cosine of j
+            var st = Math.sin(j); // Sin of j
+
+            for (var i = 0; i < 6.28; i += 0.02) {
+                var sp = Math.sin(i); // Sin of i
+                cp = Math.cos(i), // Cosine of i
+                    h = ct + 2, // Height calculation
+                    // Distance calculation
+                    D = 1 / (sp * h * sA + st * cA + 5),
+                    // Temporary variable
+                    t = sp * h * cA - st * sA;
+
+                // Calculate cordinates of ascii char
+                var x = Math.floor(width / 2 + (width / 4) * D * (cp * h * cB - t * sB));
+                var y = Math.floor(height / 2 + (height / 4) * D * (cp * h * sB + t * cB));
+        }
     }
 })
-
-
-
-
