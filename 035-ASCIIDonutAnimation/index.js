@@ -50,6 +50,44 @@
                 // Calculate cordinates of ascii char
                 var x = Math.floor(width / 2 + (width / 4) * D * (cp * h * cB - t * sB));
                 var y = Math.floor(height / 2 + (height / 4) * D * (cp * h * sB + t * cB));
+
+                // Calculate the index in the array
+                var o = x + width * y;
+                // Calculate the ascii char index
+                var N = Math.floor(8 * ((st * sA - sp * ct * cA) * cB - sp * ct * sA - cp * ct * sB));
+
+                // Update scii char and depth if conditions are met
+                if (y < height && y >= 0 && x >= 0 && x < width && D > z[o]) {
+                    z[o] = D;
+                    // Update ascii char based on the index
+                    b[o] = '.,-~:;=!*#$@'[N > 0 ? N : 0];
+                }
+
+            }
+
         }
+
+        // Update html element with the ascii frame
+        preTag.innerHTML = b.join('');
+
     }
-})
+
+    // Function to start the animation
+    function startAsciiAnimation() {
+        // Start it by calling renderAsciiAnimation every 50ms
+        window.asciiIntervalId = setInterval(renderAsciiFrame, 50);
+    }
+
+    renderAsciiFrame(); // Render the initial ascii frame
+    // Add event listener to start animation when page is loaded
+    if (document.all) {
+        // For older versions of internet explorer
+        window.attachEvent('onload', startAsciiAnimation);
+    } else {
+        // For modern browsers
+        window.addEventListener('load', startAsciiAnimation, false);
+    }
+
+    // Add event listener to update ascii frame when window resized
+    window.addEventListener('resize', renderAsciiFrame);
+})();
