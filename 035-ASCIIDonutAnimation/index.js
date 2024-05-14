@@ -1,7 +1,7 @@
 (function () {
     var preTag = document.getElementById('donut');
 
-    // Angles. Radius and Contants
+    // Angles, Radius and Contants
     var A = 1;
     var B = 1;
     var R1 = 1;
@@ -11,7 +11,7 @@
 
     // Function to render ASCII frame
     function renderAsciiFrame() {
-        var b = []; // Array to stay ascii charts
+        var b = []; // Array to stay ascii chars
         var z = []; // Array to store depth values
 
         var width = 280; // Width of frame
@@ -33,7 +33,7 @@
             z[k] = 0;
         }
 
-        // Generate the ascii srame
+        // Generate the ascii frame
         for (var j = 0; j < 6.28; j += 0.07) {
             var ct = Math.cos(j); // Cosine of j
             var st = Math.sin(j); // Sin of j
@@ -54,9 +54,9 @@
                 // Calculate the index in the array
                 var o = x + width * y;
                 // Calculate the ascii char index
-                var N = Math.floor(8 * ((st * sA - sp * ct * cA) * cB - sp * ct * sA - cp * ct * sB));
+                var N = Math.floor(8 * ((st * sA - sp * ct * cA) * cB - sp * ct * sA - st * cA - cp * ct * sB));
 
-                // Update scii char and depth if conditions are met
+                // Update ascii char and depth if conditions are met
                 if (y < height && y >= 0 && x >= 0 && x < width && D > z[o]) {
                     z[o] = D;
                     // Update ascii char based on the index
