@@ -63,7 +63,3 @@ document.querySelector('form').addEventListener('submit', (e) => {
     const symbol = symbolInput.value.toUpperCase();
     fetchStockData(symbol);
 });
-
-
-
-
