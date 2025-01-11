@@ -1,6 +1,6 @@
 # Day #36
 
-### Chrome Color Picker Extension
+### Stock Tracker App
 org url: github.com/AsmrProg-YT/100-days-of-javascript
 
 Screenshot

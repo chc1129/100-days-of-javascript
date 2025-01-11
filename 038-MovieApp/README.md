@@ -1,6 +1,6 @@
 # Day #38
 
-### Chrome Color Picker Extension
+### Movie App
 org url: github.com/AsmrProg-YT/100-days-of-javascript
 
 Screenshot
