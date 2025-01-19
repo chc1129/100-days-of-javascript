@@ -1,6 +1,6 @@
-# Day #44
+# Day #45
 
-### Minimal Weather App
+### Sudoku Solver
 org url: github.com/AsmrProg-YT/100-days-of-javascript
 
 # Screenshot

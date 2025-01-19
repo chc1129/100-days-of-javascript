@@ -1,6 +1,6 @@
 # Day #42
 
-### Currency Converter
+### Live Code Editor
 org url: github.com/AsmrProg-YT/100-days-of-javascript
 
 # Screenshot

@@ -1,6 +1,6 @@
 # Day #43
 
-### Currency Converter
+### Parallex Slider
 org url: github.com/AsmrProg-YT/100-days-of-javascript
 
 # Screenshot
