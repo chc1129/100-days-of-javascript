@@ -1,6 +1,6 @@
-# Day #46
+# Day #47
 
-### Sudoku Solver
+### Text Encryptor
 org url: github.com/AsmrProg-YT/100-days-of-javascript
 
 # Screenshot
