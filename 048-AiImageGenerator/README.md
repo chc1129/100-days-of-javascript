@@ -1,6 +1,6 @@
-# Day #47
+# Day #48
 
-### Text Encryptor
+### Ai Image Generator
 org url: github.com/AsmrProg-YT/100-days-of-javascript
 
 # Screenshot
