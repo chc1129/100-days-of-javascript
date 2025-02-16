@@ -1,4 +1,4 @@
-# Day #69
+# Day #70
 
 ### Event Calendar
 org url: github.com/AsmrProg-YT/100-days-of-javascript
