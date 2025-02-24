@@ -1,43 +1,22 @@
-*{
-    outline: none;
-}
+<!DOCTYPE html>
+<html lang="en">
 
-body{
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    width: 250px;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="popup.css">
+    <title>Day #76 - Page Translator Extension | AsmrProg</title>
+</head>
 
-h1{
-    font-size: 18px;
-    margin: 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-}
+<body>
 
-label, select, button{
-    margin-top: 10px;
-    display: block;
-    width: 100%;
-}
+    <h1>Translate Page</h1>
+    <label for="language">Choose Language:</label>
+    <select id="language"></select>
+    <button id="translate">Translate</button>
 
-select{
-    padding: 5px;
-    font-size: 14px;
-    cursor: pointer;
-}
+    <script src="langs.js"></script>
+    <script src="popup.js"></script>
+</body>
 
-button{
-    padding: 10px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-button:hover{
-    background-color: #45a049;
-}
+</html>
