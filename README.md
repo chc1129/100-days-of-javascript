@@ -89,4 +89,4 @@ Here we have list of projects:
 
 ## Where is rest 19 Projects
 
-You can vote for upcoming projects on our <a href="https://youtube.com/@AsmrProg" target="_blank">Channel</a> **community** page :wink:
+
